@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejército de Tierra | Tu Lugar está Aquí</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fuentes Militares -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --militar-green: #354230;      /* Verde OTAN */
+            --militar-olive: #4b5320;      /* Verde Oliva Oscuro */
+            --militar-sand: #bda27e;       /* Kaki Árido */
+            --militar-red: #8b0000;        /* Rojo Sangre/Insignia */
+            --militar-dark: #1a1a1a;       /* Negro Mate */
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--militar-dark);
+            color: #d1d5db;
+            background-image: 
+                radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 30px 30px;
+        }
+
+        h1, h2, h3, .stencil-font {
+            font-family: 'Black Ops One', system-ui;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tech-font {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(189, 162, 126, 0.2);
+        }
+
+        .military-btn {
+            position: relative;
+            background: var(--militar-olive);
+            color: white;
+            padding: 12px 24px;
+            border: 1px solid var(--militar-sand);
+            transition: all 0.2s ease;
+            clip-path: polygon(0 0, 95% 0, 100% 30%, 100% 100%, 5% 100%, 0 70%);
+        }
+
+        .military-btn:hover {
+            background: var(--militar-sand);
+            color: var(--militar-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(189, 162, 126, 0.4);
+        }
+
+        .hud-border {
+            position: relative;
+            border: 1px solid rgba(189, 162, 126, 0.15);
+        }
+
+        .hud-border::before, .hud-border::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: var(--militar-sand);
+            border-style: solid;
+        }
+
+        /* Top corners */
+        .hud-border::before {
+            top: -1px; left: -1px;
+            border-width: 2px 0 0 2px;
+        }
+        /* Bottom corners */
+        .hud-border::after {
+            bottom: -1px; right: -1px;
+            border-width: 0 2px 2px 0;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .recording-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse-red 1s infinite;
+        }
+
+        .section-tag {
+            background: var(--militar-olive);
+            color: var(--militar-sand);
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            border-left: 3px solid var(--militar-sand);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- HUD Overlay Info (Solo decoración estética militar) -->
+    <div class="fixed top-24 left-6 hidden lg:block z-40 tech-font text-[10px] text-amber-600/40 pointer-events-none">
+        GRID: 40.4168° N, 3.7038° W<br>
+        ALT: 657m<br>
+        STATUS: READY_TO_DEPLOY
+    </div>
+
+    <!-- Navegación -->
+    <nav class="fixed w-full z-50 glass-panel py-3 px-6 border-b border-white/5 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-zinc-900 border border-amber-600/30 flex items-center justify-center">
+                <i class="fa-solid fa-crosshairs text-amber-500"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="stencil-font text-xl leading-none text-white">EJÉRCITO DE TIERRA</span>
+                <span class="tech-font text-[10px] text-amber-600 tracking-tighter uppercase">Fuerzas Armadas Españolas</span>
+            </div>
+        </div>
+        <div class="hidden md:flex gap-8 tech-font font-semibold text-xs tracking-widest uppercase">
+            <a href="#mision" class="hover:text-amber-500 transition">Misión</a>
+            <a href="#especialidades" class="hover:text-amber-500 transition">Especialidades</a>
+            <a href="#unete" class="hover:text-amber-500 transition">Inscripción</a>
+        </div>
+        <a href="#unete" class="military-btn text-xs font-bold tracking-widest">INGRESAR</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/13367980183705992581" class="w-full h-full object-cover opacity-30 contrast-125" alt="Operaciones especiales Ejército de Tierra">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-zinc-950/80 to-black"></div>
+        </div>
+        
+        <!-- Retícula de mira telescópica decorativa -->
+        <div class="absolute inset-0 pointer-events-none opacity-10">
+            <div class="absolute top-1/2 left-0 w-full h-[1px] bg-white"></div>
+            <div class="absolute top-0 left-1/2 w-[1px] h-full bg-white"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <span class="recording-dot"></span>
+                <span class="tech-font text-amber-500 tracking-[0.4em] text-xs">SISTEMA DE CAPTACIÓN ACTIVO</span>
+            </div>
+            <h1 class="text-6xl md:text-9xl font-bold leading-none mb-6 text-zinc-100">
+                MISION <br><span class="text-amber-600">ESPAÑA</span>
+            </h1>
+            <p class="tech-font text-lg md:text-xl text-zinc-400 mb-10 max-w-3xl mx-auto uppercase tracking-tighter">
+                Tu capacidad técnica y valor operativo son el escudo de nuestra soberanía. <br>
+                <span class="text-zinc-500">Inicia el proceso de selección 2025.</span>
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <button onclick="document.getElementById('especialidades').scrollIntoView()" class="military-btn px-12 py-5 text-xl font-bold uppercase">DESPLEGARSE</button>
+                <div class="text-zinc-500 tech-font text-xs uppercase tracking-widest border-l border-zinc-700 pl-6">
+                    Mando de Personal<br>
+                    Campaña: 2025-ALPHA
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Counters -->
+    <section id="mision" class="py-16 px-6 border-y border-white/5 bg-zinc-900/50">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="hud-border p-6 bg-zinc-900/80">
+                <div class="text-amber-600 text-[10px] mb-2 tech-font">SPEC_COUNT</div>
+                <h3 class="text-3xl font-bold text-zinc-100 stencil-font">150+</h3>
+                <p class="text-zinc-500 text-[10px] tech-font uppercase mt-1">Plazas especializadas</p>
+            </div>
+            <div class="hud-border p-6 bg-zinc-900/80">
+                <div class="text-amber-600 text-[10px] mb-2 tech-font">STABILITY_RATIO</div>
+                <h3 class="text-3xl font-bold text-zinc-100 stencil-font">100%</h3>
+                <p class="text-zinc-500 text-[10px] tech-font uppercase mt-1">Carrera profesional</p>
+            </div>
+            <div class="hud-border p-6 bg-zinc-900/80">
+                <div class="text-amber-600 text-[10px] mb-2 tech-font">GLOBAL_OPS</div>
+                <h3 class="text-3xl font-bold text-zinc-100 stencil-font">22</h3>
+                <p class="text-zinc-500 text-[10px] tech-font uppercase mt-1">Zonas de operaciones</p>
+            </div>
+            <div class="hud-border p-6 bg-zinc-900/80">
+                <div class="text-amber-600 text-[10px] mb-2 tech-font">ASCENT_VAL</div>
+                <h3 class="text-3xl font-bold text-zinc-100 stencil-font">MAX</h3>
+                <p class="text-zinc-500 text-[10px] tech-font uppercase mt-1">Promoción interna</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties -->
+    <section id="especialidades" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 flex items-end justify-between border-b border-zinc-800 pb-4">
+                <div>
+                    <span class="section-tag mb-4 inline-block tech-font">PERFILES DE ACCIÓN</span>
+                    <h2 class="text-4xl font-bold text-zinc-100">SECTOR OPERATIVO</h2>
+                </div>
+                <span class="tech-font text-zinc-600 text-xs hidden md:block">SEL: 2025_RECRUIT_V1</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Ciber -->
+                <div class="hud-border group overflow-hidden bg-zinc-900">
+                    <div class="h-64 overflow-hidden grayscale group-hover:grayscale-0 transition duration-700">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/6776581707284641457" class="w-full h-full object-cover" alt="Analista ciberdefensa">
+                    </div>
+                    <div class="p-8 border-t border-amber-600/20">
+                        <h3 class="stencil-font text-xl mb-2 text-zinc-100">INTELIGENCIA Y CIBER</h3>
+                        <p class="tech-font text-zinc-500 text-sm mb-6 leading-relaxed">Operaciones en el ciberespacio. Protección de redes críticas nacionales y guerra electrónica.</p>
+                        <button class="military-btn w-full text-xs py-3">INFORME DE ROL</button>
+                    </div>
+                </div>
+
+                <!-- Sanidad -->
+                <div class="hud-border group overflow-hidden bg-zinc-900">
+                    <div class="h-64 overflow-hidden grayscale group-hover:grayscale-0 transition duration-700">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/4673089179770296930" class="w-full h-full object-cover" alt="Personal de sanidad militar">
+                    </div>
+                    <div class="p-8 border-t border-amber-600/20">
+                        <h3 class="stencil-font text-xl mb-2 text-zinc-100">SANIDAD MILITAR</h3>
+                        <p class="tech-font text-zinc-500 text-sm mb-6 leading-relaxed">Apoyo vital en combate y misiones humanitarias internacionales. Medicina de vanguardia.</p>
+                        <button class="military-btn w-full text-xs py-3">INFORME DE ROL</button>
+                    </div>
+                </div>
+
+                <!-- Fuerzas Pesadas -->
+                <div class="hud-border group overflow-hidden bg-zinc-900">
+                    <div class="h-64 overflow-hidden grayscale group-hover:grayscale-0 transition duration-700">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/620407581157837248" class="w-full h-full object-cover" alt="Vehículo de combate y soldados">
+                    </div>
+                    <div class="p-8 border-t border-amber-600/20">
+                        <h3 class="stencil-font text-xl mb-2 text-zinc-100">FUERZAS ACORAZADAS</h3>
+                        <p class="tech-font text-zinc-500 text-sm mb-6 leading-relaxed">Potencia de fuego y maniobra táctica. Mantenimiento de sistemas de combate Leopard y Pizarro.</p>
+                        <button class="military-btn w-full text-xs py-3">INFORME DE ROL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonio Táctico -->
+    <section class="py-24 bg-zinc-900/80 px-6 border-y border-zinc-800">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="w-48 h-48 hud-border shrink-0 p-2">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/2307911665479893045" class="w-full h-full object-cover grayscale brightness-75" alt="Retrato oficial">
+            </div>
+            <div>
+                <span class="tech-font text-amber-600 text-[10px] block mb-2">TESTIMONIO_AUTENTICADO // REF: 8821-X</span>
+                <p class="text-2xl font-light italic text-zinc-300 leading-snug">
+                    "El compromiso con España no es una frase hecha, es un estilo de vida. Aquí la tecnología y el honor van de la mano."
+                </p>
+                <div class="mt-6">
+                    <h4 class="stencil-font text-zinc-100">Capitán Roma</h4>
+                    <p class="tech-font text-zinc-600 text-xs">Mando de Operaciones Especiales (MOE)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form -->
+    <section id="unete" class="py-24 px-6 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="stencil-font text-4xl mb-6 text-white">RECLUTAMIENTO <span class="text-amber-600">FASE 1</span></h2>
+                    <p class="tech-font text-zinc-500 mb-10 leading-relaxed uppercase text-sm">
+                        Inicia tu expediente digital. Un gestor de personal analizará tu perfil y te guiará en las pruebas de acceso (físicas, psicotécnicas y médicas).
+                    </p>
+                    
+                    <div class="space-y-6 tech-font text-xs uppercase text-zinc-400">
+                        <div class="flex items-start gap-4">
+                            <span class="w-2 h-2 mt-1 bg-amber-600"></span>
+                            <div>
+                                <strong class="text-white block mb-1">Paso 01: Pre-registro</strong>
+                                Envío de datos básicos y titulación académica.
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="w-2 h-2 mt-1 bg-amber-600"></span>
+                            <div>
+                                <strong class="text-white block mb-1">Paso 02: Orientación</strong>
+                                Entrevista con orientador de carrera militar.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hud-border p-1 bg-zinc-900">
+                    <form class="p-8 space-y-6" onsubmit="event.preventDefault(); this.innerHTML = '<div class=\'text-center py-20 stencil-font text-amber-500\'>DATOS TRANSMITIDOS... ESPERE ÓRDENES</div>';">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="tech-font text-[10px] text-zinc-500 block mb-2 uppercase">Identificador / Nombre</label>
+                                <input type="text" class="w-full bg-black border border-zinc-800 p-3 tech-font text-white focus:border-amber-600 outline-none" required>
+                            </div>
+                            <div>
+                                <label class="tech-font text-[10px] text-zinc-500 block mb-2 uppercase">Comunicación / Email</label>
+                                <input type="email" class="w-full bg-black border border-zinc-800 p-3 tech-font text-white focus:border-amber-600 outline-none" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="tech-font text-[10px] text-zinc-500 block mb-2 uppercase">Cuerpo de Interés</label>
+                            <select class="w-full bg-black border border-zinc-800 p-3 tech-font text-white focus:border-amber-600 outline-none">
+                                <option>Cuerpos Comunes (Sanidad/Jurídico)</option>
+                                <option>Tropa y Marinería (Operativo)</option>
+                                <option>Escala de Oficiales (Grado)</option>
+                                <option>Escala de Suboficiales (FP)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="military-btn w-full py-4 text-sm font-bold tracking-[0.3em]">ENVIAR EXPEDIENTE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 py-10 px-6 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 border border-zinc-700 flex items-center justify-center grayscale opacity-50">
+                    <i class="fa-solid fa-building-columns text-white"></i>
+                </div>
+                <div class="tech-font text-[10px] text-zinc-600">
+                    SISTEMA OFICIAL DE CAPTACIÓN<br>
+                    MINISTERIO DE DEFENSA, ESPAÑA
+                </div>
+            </div>
+            <div class="flex gap-8 tech-font text-[10px] text-zinc-500 uppercase">
+                <a href="#" class="hover:text-amber-600">Aviso Legal</a>
+                <a href="#" class="hover:text-amber-600">Privacidad</a>
+                <a href="#" class="hover:text-amber-600">OPSEC</a>
+            </div>
+            <div class="stencil-font text-zinc-800 text-sm tracking-widest">
+                #EJÉRCITODETIERRAESTULUGAR
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
